@@ -43,14 +43,23 @@ def validate_entry(text):
 
 
 def write_entry(path):
-    """Write ENTRY to path, read it back, and verify it is byte-identical."""
+    """Write ENTRY to path, read it back, and verify it byte-exactly.
+
+    The read-back must have the same byte length as the encoded entry
+    (no trailing newline may sneak in), be byte-identical to it, and
+    hash to the same sha256 digest.
+    """
     data = ENTRY.encode("utf-8")
     with open(path, "wb") as f:
         f.write(data)
     with open(path, "rb") as f:
         back = f.read()
+    if len(back) != len(data):
+        raise RuntimeError("read-back byte length mismatch for %s" % path)
     if back != data:
         raise RuntimeError("read-back mismatch for %s" % path)
+    if hashlib.sha256(back).hexdigest() != hashlib.sha256(data).hexdigest():
+        raise RuntimeError("read-back digest mismatch for %s" % path)
     return path
 
 
@@ -62,6 +71,10 @@ def main():
         return 1
     here = os.path.dirname(os.path.abspath(__file__))
     write_entry(os.path.join(here, "entry.txt"))
+    env_dir = os.environ.get("MAKEFUN_OUTPUT_DIR")
+    if env_dir:
+        os.makedirs(env_dir, exist_ok=True)
+        write_entry(os.path.join(env_dir, "entry.txt"))
     if os.path.isdir("/output"):
         write_entry("/output/entry.txt")
     digest = hashlib.sha256(ENTRY.encode("utf-8")).hexdigest()
