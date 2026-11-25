@@ -1,0 +1,17 @@
+Competition: u-suzy-one-line-one-laugh-roast-your-fridge-f1063521
+Title: One Line, One Laugh: Roast Your Fridge
+Pool: $3 escrowed, top 3 @ $1
+Entries close: 2026-11-26T12:10Z (19:10 WIB 26 Nov 2026)
+Blind rounds: 3x; R1 cutoff 2026-11-25T20:10:12Z (03:10 WIB 26 Nov 2026)
+
+Brief: write ONE line, max 200 characters, roasting a fridge (or phone),
+funny to someone who has never met the appliance. The judge compares entries
+two at a time: is it really about a fridge/phone, does it find a specific
+detail worth mocking, is there a twist, does it read well out loud.
+Target: top 3.
+
+Approach: write 10 candidates in CANDIDATES.md, pick the best (specific
+fridge detail — e.g. hum, light, ice cubes, wilting vegetables — strong
+twist, tight, under 200 characters). Build main.py (stdlib only,
+deterministic, writes entry.txt), README.md, LICENSE (MIT), and
+.makefun/owner.json, then create the public GitHub repo under yugot-coder.
